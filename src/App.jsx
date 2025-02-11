@@ -97,14 +97,10 @@ const App = () => {
       <div className="wrapper">
         <header>
           <div className="flex justify-center items-center gap-4">
-            <img
-              className="h-6 w-auto m-0"
-              src="movies/glassto - light.svg"
-              alt=""
-            />
+            <img className="h-6 w-auto m-0" src="/glassto - light.svg" alt="" />
             <h2 className="text-xl text-[#DDC6B6]">Glassto</h2>
           </div>
-          <img src="movies/hero-img.png" alt="image.png" />
+          <img src="/hero-img.png" alt="image.png" />
           <h1>
             Find{" "}
             <span className="text-gradient subpixel-antialiased font-[1000]">
