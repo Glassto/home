@@ -18,11 +18,15 @@ const API_OPTIONS = {
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [movieList, setMovieList] = useState([]);
-  const [trendingMovies, setTrendingMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+
+  const [movieList, setMovieList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const [trendingMovies, setTrendingMovies] = useState([]);
+  const [isLoadingTrending, setIsLoadingTrending] = useState(false);
+  const [errorMessageTrending, setErrorMessageTrending] = useState("");
 
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 1000, [searchTerm]);
 
@@ -61,12 +65,21 @@ const App = () => {
   };
 
   const fetchTrendingMovies = async () => {
+    setIsLoadingTrending(true);
+    setErrorMessageTrending("");
+
     try {
       const movies = await getTrendingMovies();
+
+      if (!movies) {
+        throw new Error("Failed to fetch data from Database");
+      }
 
       setTrendingMovies(movies);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoadingTrending(false);
     }
   };
 
@@ -99,14 +112,20 @@ const App = () => {
           <section className="trending">
             <h2>Trending</h2>
 
-            <ul>
-              {trendingMovies.map((movie, index) => (
-                <li key="movie.$id">
-                  <p>{index + 1}</p>
-                  <img src={movie.poster_url} alt={movie.title} />
-                </li>
-              ))}
-            </ul>
+            {isLoadingTrending ? (
+              <Spinner />
+            ) : errorMessageTrending ? (
+              <p>{errorMessageTrending}</p>
+            ) : (
+              <ul>
+                {trendingMovies.map((movie, index) => (
+                  <li key="movie.$id">
+                    <p>{index + 1}</p>
+                    <img src={movie.poster_url} alt={movie.title} />
+                  </li>
+                ))}
+              </ul>
+            )}
           </section>
         )}
 
