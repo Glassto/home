@@ -96,7 +96,11 @@ const App = () => {
       <div className="pattern" />
       <div className="wrapper">
         <header>
-          <img src="./hero-img.png" alt="image.png" />
+          <div className="flex justify-center items-center gap-4">
+            <img className="h-6 w-auto m-0" src="/glassto - light.svg" alt="" />
+            <h2 className="text-xl text-[#DDC6B6]">Glassto</h2>
+          </div>
+          <img src="/hero-img.png" alt="image.png" />
           <h1>
             Find{" "}
             <span className="text-gradient subpixel-antialiased font-[1000]">
