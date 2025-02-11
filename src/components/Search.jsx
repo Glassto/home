@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 
-const Search = (prop) => {
+const Search = ({ searchTerm, setSearchTerm }) => {
   return (
     <main>
       <div className="search">
@@ -8,9 +9,9 @@ const Search = (prop) => {
           <img src="search.svg" alt="search" />
           <input
             type="text"
-            placeholder="Search through thousands the movies"
-            value={prop.searchTerm}
-            onChange={(e) => prop.setSearchTerm(e.target.value)}
+            placeholder="Search through thousands of movies"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
       </div>
