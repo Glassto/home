@@ -5,6 +5,7 @@ import Search from "./components/Search.jsx";
 import Spinner from "./components/Spinner.jsx";
 import MovieCard from "./components/MovieCard.jsx";
 import { getTrendingMovies, updateSearchCount } from "./appwrite.js";
+import Modal from "./components/Modal.jsx";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -36,8 +37,8 @@ const App = () => {
 
     try {
       const endpoint = query
-        ? `${API_BASE_URL}/search/movie?language=ro-RO&query=${query}&page=1`
-        : `${API_BASE_URL}/discover/movie?language=ro-RO&sort_by=popularity.desc&page=1`;
+        ? `${API_BASE_URL}/search/movie?language=en-EN&query=${query}&page=1&sort_by=year.asc`
+        : `${API_BASE_URL}/discover/movie?language=en-EN&sort_by=popularity.desc&page=1`;
       const response = await fetch(endpoint, API_OPTIONS);
 
       if (!response.ok) {
@@ -57,8 +58,8 @@ const App = () => {
         await updateSearchCount(query, data.results[0]);
       }
     } catch (error) {
-      console.error(`${error}`);
-      setErrorMessage(`${error}`);
+      console.error({ error });
+      setErrorMessage({ error });
     } finally {
       setIsLoading(false);
     }
