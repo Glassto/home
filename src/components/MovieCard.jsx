@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
+import { Link } from "react-router";
 import Modal from "./Modal.jsx";
 
 const MovieCard = ({
@@ -22,13 +23,13 @@ const MovieCard = ({
   const handleClose = () => setIsOpen(false);
 
   return (
-    <>
+    <Link to={`/home/movie/${id}`}>
       <div className="movie-card" onClick={() => handleOpen(title)}>
         <img
           src={
             poster_path
               ? `https://image.tmdb.org/t/p/w500/${poster_path}`
-              : "/movies/no-movie.png"
+              : "/home/no-movie.png"
           }
           alt={title}
         />
@@ -39,7 +40,7 @@ const MovieCard = ({
 
         <div className="content">
           <div className="rating">
-            <img src="/movies/star.svg" alt="Star Icon" />
+            <img src="/home/star.svg" alt="Star Icon" />
             <p>{vote_average ? vote_average.toFixed(1) : "N/A"}</p>
           </div>
 
@@ -53,16 +54,16 @@ const MovieCard = ({
         </div>
       </div>
 
-      {isOpen && (
-        <Modal
-          isOpen={isOpen}
-          id={id}
-          title={selectedTitle}
-          poster_path={poster_path}
-          onClose={handleClose}
-        />
-      )}
-    </>
+      {/* {isOpen && (
+         <Modal
+           isOpen={isOpen}
+           id={id}
+           title={selectedTitle}
+           poster_path={poster_path}
+           onClose={handleClose}
+         />
+       )} */}
+    </Link>
   );
 };
 

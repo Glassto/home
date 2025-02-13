@@ -5,7 +5,7 @@ import Search from "./components/Search.jsx";
 import Spinner from "./components/Spinner.jsx";
 import MovieCard from "./components/MovieCard.jsx";
 import { getTrendingMovies, updateSearchCount } from "./appwrite.js";
-import Modal from "./components/Modal.jsx";
+import { Link } from "react-router";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -46,8 +46,8 @@ const App = () => {
       }
 
       const data = await response.json();
-      if (data.Response === "false") {
-        setErrorMessage(data.Error || "Failed to fetch data");
+      if (!data.results || data.results.length === 0) {
+        setErrorMessage("No movies found");
         setMovieList([]);
         return;
       }
@@ -58,8 +58,8 @@ const App = () => {
         await updateSearchCount(query, data.results[0]);
       }
     } catch (error) {
-      console.error({ error });
-      setErrorMessage({ error });
+      console.error(error.message);
+      setErrorMessage(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -79,6 +79,7 @@ const App = () => {
       setTrendingMovies(movies);
     } catch (error) {
       console.error(error);
+      setErrorMessageTrending(error.message);
     } finally {
       setIsLoadingTrending(false);
     }
@@ -100,12 +101,12 @@ const App = () => {
           <div className="flex justify-center items-center gap-4">
             <img
               className="h-6 w-auto m-0"
-              src="/movies/glassto - light.svg"
+              src="/home/glassto - light.svg"
               alt=""
             />
             <h2 className="text-xl text-[#DDC6B6]">Glassto</h2>
           </div>
-          <img src="/movies/hero-img.png" alt="image.png" />
+          <img src="/home/hero-img.png" alt="image.png" />
           <h1>
             Find{" "}
             <span className="text-gradient subpixel-antialiased font-[1000]">
@@ -128,7 +129,7 @@ const App = () => {
             ) : (
               <ul>
                 {trendingMovies.map((movie, index) => (
-                  <li key="movie.$id">
+                  <li key={movie.$id || index}>
                     <p>{index + 1}</p>
                     <img src={movie.poster_url} alt={movie.title} />
                   </li>

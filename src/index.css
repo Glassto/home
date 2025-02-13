@@ -20,7 +20,7 @@
 
   --breakpoint-xs: 480px;
 
-  --background-image-hero-pattern: url("/movies/hero-bg.png");
+  --background-image-hero-pattern: url("/home/hero-bg.png");
 }
 
 @layer base {
@@ -145,7 +145,7 @@
   }
 
   .modal {
-    @apply fixed bg-modal drop-shadow-indigo-3xl h-dvh min-w-300 mx-auto sm:w-3/4 md:w-2/4 inset-x-0 top-0 p-12 rounded-xl z-50;
+    @apply bg-modal drop-shadow-indigo-3xl h-dvh min-w-300 mx-auto sm:w-3/4 md:w-2/4 p-12 rounded-xl z-50;
 
     & h2 {
       @apply lg:text-2xl font-bold text-white sm:text-xl line-clamp-1;
