@@ -2,7 +2,7 @@
   "name": "react",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://glassto.github.io/movies",
+  "homepage": "https://glassto.github.io/home",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
