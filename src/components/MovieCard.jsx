@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { Link } from "react-router";
-import Modal from "./Modal.jsx";
+import Modal from "../pages/MoviePage.jsx";
 
 const MovieCard = ({
   movie: {
@@ -13,15 +13,6 @@ const MovieCard = ({
     original_language,
   },
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedTitle, setSelectedTitle] = useState("");
-
-  const handleOpen = (title) => {
-    setSelectedTitle(title);
-    setIsOpen(true);
-  };
-  const handleClose = () => setIsOpen(false);
-
   return (
     <Link to={`/home/movie/${id}`}>
       <div className="movie-card" onClick={() => handleOpen(title)}>

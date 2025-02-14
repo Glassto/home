@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import "./index.css";
 import App from "./App";
 import ErrorPage from "./pages/errorPage.jsx";
-import Modal from "./components/Modal.jsx";
+import MoviePage from "./pages/MoviePage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
   },
   {
     path: "home/movie/:id",
-    element: <Modal />,
+    element: <MoviePage />,
   },
 ]);
 

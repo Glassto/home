@@ -5,17 +5,7 @@ import Search from "./components/Search.jsx";
 import Spinner from "./components/Spinner.jsx";
 import MovieCard from "./components/MovieCard.jsx";
 import { getTrendingMovies, updateSearchCount } from "./appwrite.js";
-import { Link } from "react-router";
-
-const API_BASE_URL = "https://api.themoviedb.org/3";
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-const API_OPTIONS = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization: `Bearer ${API_KEY}`,
-  },
-};
+import { API_BASE_URL, API_OPTIONS } from "./data/TMDB_get";
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -30,6 +20,7 @@ const App = () => {
   const [errorMessageTrending, setErrorMessageTrending] = useState("");
 
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 1000, [searchTerm]);
+  useDebounce(() => setMovieList(movieList), 1000, [movieList]);
 
   const fetchMovies = async (query = "") => {
     setIsLoading(true);
