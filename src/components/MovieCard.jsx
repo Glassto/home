@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router";
-import Modal from "../pages/MoviePage.jsx";
 
 const MovieCard = ({
   movie: {
@@ -15,7 +14,7 @@ const MovieCard = ({
 }) => {
   return (
     <Link to={`/home/movie/${id}`}>
-      <div className="movie-card" onClick={() => handleOpen(title)}>
+      <div className="movie-card">
         <img
           src={
             poster_path

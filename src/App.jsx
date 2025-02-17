@@ -5,7 +5,8 @@ import Search from "./components/Search.jsx";
 import Spinner from "./components/Spinner.jsx";
 import MovieCard from "./components/MovieCard.jsx";
 import { getTrendingMovies, updateSearchCount } from "./appwrite.js";
-import { API_BASE_URL, API_OPTIONS } from "./data/TMDB_get";
+import { API_BASE_URL, API_OPTIONS, fetchMovies } from "./data/TMDB_get";
+import { Link } from "react-router";
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,41 +21,6 @@ const App = () => {
   const [errorMessageTrending, setErrorMessageTrending] = useState("");
 
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 1000, [searchTerm]);
-  useDebounce(() => setMovieList(movieList), 1000, [movieList]);
-
-  const fetchMovies = async (query = "") => {
-    setIsLoading(true);
-    setErrorMessage("");
-
-    try {
-      const endpoint = query
-        ? `${API_BASE_URL}/search/movie?language=en-EN&query=${query}&page=1&sort_by=year.asc`
-        : `${API_BASE_URL}/discover/movie?language=en-EN&sort_by=popularity.desc&page=1`;
-      const response = await fetch(endpoint, API_OPTIONS);
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-
-      const data = await response.json();
-      if (!data.results || data.results.length === 0) {
-        setErrorMessage("No movies found");
-        setMovieList([]);
-        return;
-      }
-
-      setMovieList(data.results || []);
-
-      if (query && data.results.length > 0) {
-        await updateSearchCount(query, data.results[0]);
-      }
-    } catch (error) {
-      console.error(error.message);
-      setErrorMessage(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const fetchTrendingMovies = async () => {
     setIsLoadingTrending(true);
@@ -76,8 +42,28 @@ const App = () => {
     }
   };
 
+  const getMovies = async () => {
+    setIsLoading(true);
+    setErrorMessage("");
+
+    try {
+      const movies = await fetchMovies(debouncedSearchTerm);
+
+      if (!movies) {
+        throw new Error("Failed to fetch data from fetchMovies function");
+      }
+
+      setMovieList(movies);
+    } catch (error) {
+      console.error(error);
+      setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    fetchMovies(debouncedSearchTerm);
+    getMovies();
   }, [debouncedSearchTerm]);
 
   useEffect(() => {
@@ -120,10 +106,15 @@ const App = () => {
             ) : (
               <ul>
                 {trendingMovies.map((movie, index) => (
-                  <li key={movie.$id || index}>
-                    <p>{index + 1}</p>
-                    <img src={movie.poster_url} alt={movie.title} />
-                  </li>
+                  <Link
+                    key={movie.$id || index}
+                    to={`/home/movie/${movie.movie_id}`}
+                  >
+                    <li>
+                      <p>{index + 1}</p>
+                      <img src={movie.poster_url} alt={movie.title} />
+                    </li>
+                  </Link>
                 ))}
               </ul>
             )}
