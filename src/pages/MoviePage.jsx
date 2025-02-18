@@ -193,7 +193,7 @@ const MoviePage = () => {
               </p>
             </div>
 
-            <hr className="h-[0.5px] my-8 w-full border-0 dark:bg-modal-light"></hr>
+            <hr className="h-[0.75px] my-8 w-full border-0 dark:bg-modal-light"></hr>
 
             <div className="release flex gap-5">
               <h3>Release Date</h3>
@@ -299,7 +299,7 @@ const MoviePage = () => {
               </ul>
             </div>
 
-            <hr className="h-[0.5px] mt-8 w-full border-0 dark:bg-modal-light"></hr>
+            <hr className="h-[0.75px] mt-8 w-full border-0 dark:bg-modal-light"></hr>
           </div>
         </div>
       )}
