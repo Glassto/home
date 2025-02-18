@@ -73,7 +73,7 @@ export const fetchMovieTrailer = async (movieId) => {
   }
 };
 
-export const fetchMovieCertification = async (movieId) => {
+export const fetchMovieCertification = async (movieId, country) => {
   try {
     const response = await fetch(
       `${API_BASE_URL}/movie/${movieId}/release_dates`,
@@ -82,7 +82,10 @@ export const fetchMovieCertification = async (movieId) => {
 
     const data = await response.json();
     for (const certification of data.results) {
-      if (certification.iso_3166_1 === "US") {
+      if (
+        certification.iso_3166_1 === "US" ||
+        certification.iso_3166_1 === country
+      ) {
         return certification.release_dates[0];
       }
     }

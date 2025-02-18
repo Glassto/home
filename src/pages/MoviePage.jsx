@@ -15,7 +15,7 @@ const MoviePage = () => {
 
   const [movieTrailerList, setMovieTrailerList] = useState([]);
 
-  const [movieData, setMovieData] = useState([]);
+  const [movieData, setMovieData] = useState({});
   const [movieCertification, setMovieCertification] = useState([]);
 
   const getMovieData = async () => {
@@ -27,7 +27,7 @@ const MoviePage = () => {
 
       if (getMovieData) {
         setMovieData(getMovieData);
-        console.log(getMovieData);
+        console.log("Movie Data:", getMovieData);
       } else
         throw new Error("Failed to fetch Movie data from fetchMovies function");
 
@@ -47,10 +47,15 @@ const MoviePage = () => {
   };
 
   const getMovieCertifications = async () => {
-    const certification = await fetchMovieCertification(params.id);
-    setMovieCertification(certification);
+    if (movieData.origin_country) {
+      const certification = await fetchMovieCertification(
+        params.id,
+        movieData.origin_country[0]
+      );
+      setMovieCertification(certification);
 
-    console.log(certification);
+      console.log(certification);
+    } else setMovieCertification("N/A");
   };
 
   const curatedTrailerList = () => {
@@ -68,8 +73,11 @@ const MoviePage = () => {
 
   useEffect(() => {
     getMovieData();
-    getMovieCertifications();
   }, [params.id]);
+
+  useEffect(() => {
+    getMovieCertifications();
+  }, [movieData]);
 
   return (
     <div className="moviePage">
@@ -123,6 +131,59 @@ const MoviePage = () => {
               src={`https://www.youtube.com/embed/${curatedTrailerList()}?fs=1`}
               allowFullScreen
             ></iframe>
+          </div>
+
+          <div className="movieDetails">
+            <div className="genre">
+              <h3>Genres</h3>
+              <div className="genres">
+                <ul className="flex gap-2 text-white ">
+                  {movieData.genres ? (
+                    movieData.genres.map((genre) => (
+                      <li key={genre.id}>{genre.name}</li>
+                    ))
+                  ) : (
+                    <li>N/A</li>
+                  )}
+                </ul>
+
+                <ul className="flex justify-center gap-2">
+                  <li>
+                    <div className="rating flex w-max items-center gap-1 py-1.5">
+                      <img src="/home/star.svg" alt="aa" />
+                      <p>
+                        {movieData.vote_average
+                          ? movieData.vote_average.toFixed(1)
+                          : "N/A"}
+                        <span className="text-indigo-300/60">
+                          /10 (
+                          {movieData.vote_count ? movieData.vote_count : "N/A"})
+                        </span>
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="rating flex w-max items-center gap-3 py-1.5">
+                      <img src="/home/popularity.svg" alt="aa" />
+                      <p className="text-indigo-300/60">
+                        {movieData.popularity
+                          ? Math.round(movieData.popularity)
+                          : "N/A"}
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div>
+              <div className="overview flex gap-5">
+                <h3>Overview</h3>
+                <p className="overviewText">
+                  {movieData.overview ? movieData.overview : movieData.tagline}
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="movieDetails"></div>
