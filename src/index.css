@@ -180,12 +180,15 @@
       @apply flex gap-3 text-indigo-300/60 font-medium text-base;
     }
 
-    & .media {
-      @apply my-5 flex h-auto sm:h-100 gap-5;
+    & .trailer-button {
+      @apply block sm:hidden w-full mt-3;
     }
 
+    & .media {
+      @apply my-5 flex-none w-full h-auto sm:h-100 sm:gap-5 sm:flex;
+    }
     & .media img {
-      @apply flex-none grid-cols-none rounded-lg;
+      @apply flex-none w-full sm:w-auto grid-cols-none rounded-lg;
     }
     & .media .video {
       @apply flex-none w-auto  rounded-lg object-cover sm:block sm:flex-1 hidden;

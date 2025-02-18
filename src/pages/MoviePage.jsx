@@ -117,21 +117,30 @@ const MoviePage = () => {
             </p>
           </div>
 
-          <div className="media">
-            <img
-              src={
-                movieData.poster_path
-                  ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}`
-                  : "/home/no-movie.png"
-              }
-              alt=""
-            />
-            <iframe
-              sandbox="allow-same-origin allow-forms allow-popups allow-scripts allow-presentation"
-              className="video"
-              src={`https://www.youtube.com/embed/${curatedTrailerList()}?fs=1`}
-              allowFullScreen
-            ></iframe>
+          <div>
+            <div className="media">
+              <img
+                src={
+                  movieData.poster_path
+                    ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}`
+                    : "/home/no-movie.png"
+                }
+                alt=""
+              />
+
+              <a
+                href={`https://www.youtube.com/watch?v=${curatedTrailerList()}`}
+              >
+                <button className="trailer-button">Watch Trailer</button>
+              </a>
+
+              <iframe
+                sandbox="allow-same-origin allow-forms allow-popups allow-scripts allow-presentation"
+                className="video"
+                src={`https://www.youtube.com/embed/${curatedTrailerList()}?fs=1`}
+                allowFullScreen
+              ></iframe>
+            </div>
           </div>
 
           <div className="movieDetails space-y-2.5">
@@ -183,6 +192,8 @@ const MoviePage = () => {
                 {movieData.overview ? movieData.overview : movieData.tagline}
               </p>
             </div>
+
+            <hr className="h-[0.5px] my-8 w-full border-0 dark:bg-modal-light"></hr>
 
             <div className="release flex gap-5">
               <h3>Release Date</h3>
@@ -287,6 +298,8 @@ const MoviePage = () => {
                   : null}
               </ul>
             </div>
+
+            <hr className="h-[0.5px] mt-8 w-full border-0 dark:bg-modal-light"></hr>
           </div>
         </div>
       )}
