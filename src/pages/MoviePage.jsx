@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router";
 import Spinner from "../components/Spinner";
+import MovieDates from "../data/MovieDates.js";
 import {
   fetchMovieDetails,
   fetchMovieTrailer,
@@ -133,7 +134,7 @@ const MoviePage = () => {
             ></iframe>
           </div>
 
-          <div className="movieDetails">
+          <div className="movieDetails space-y-2.5">
             <div className="genre">
               <h3>Genres</h3>
               <div className="genres">
@@ -176,17 +177,117 @@ const MoviePage = () => {
               </div>
             </div>
 
-            <div>
-              <div className="overview flex gap-5">
-                <h3>Overview</h3>
-                <p className="overviewText">
-                  {movieData.overview ? movieData.overview : movieData.tagline}
-                </p>
-              </div>
+            <div className="overview flex gap-5">
+              <h3>Overview</h3>
+              <p className="overviewText">
+                {movieData.overview ? movieData.overview : movieData.tagline}
+              </p>
+            </div>
+
+            <div className="release flex gap-5">
+              <h3>Release Date</h3>
+              <p className="overviewText">
+                {movieData.release_date ? (
+                  <MovieDates release_date={movieData.release_date} />
+                ) : (
+                  "N/A"
+                )}
+              </p>
+            </div>
+
+            <div className="countries flex gap-5">
+              <h3>Countries</h3>
+              <ul className="overviewText flex flex-wrap gap-1">
+                {movieData.production_countries
+                  ? movieData.production_countries.map((country, i) => {
+                      return (
+                        <li
+                          className="after:content-['·'] last:after:content-none"
+                          key={i}
+                        >
+                          {` ${country.name} `}
+                        </li>
+                      );
+                    })
+                  : null}
+              </ul>
+            </div>
+
+            <div className="status flex gap-5">
+              <h3>Status</h3>
+              <p className="overviewText">
+                {movieData.status ? movieData.status : "N/A"}
+              </p>
+            </div>
+
+            <div className="languages flex gap-5">
+              <h3>Languages</h3>
+              <ul className="overviewText flex flex-wrap gap-1">
+                {movieData.spoken_languages
+                  ? movieData.spoken_languages.map((language, i) => {
+                      return (
+                        <li
+                          className="after:content-['·'] last:after:content-none"
+                          key={i}
+                        >
+                          {`${language.english_name} `}
+                        </li>
+                      );
+                    })
+                  : null}
+              </ul>
+            </div>
+
+            <div className="budget flex gap-5">
+              <h3>Budget</h3>
+              <ul className="overviewText">
+                {movieData.budget ? (
+                  <li>${movieData.budget / 1000000} Million</li>
+                ) : (
+                  "N/A"
+                )}
+              </ul>
+            </div>
+
+            <div className="revenue flex gap-5">
+              <h3>Revenue</h3>
+              <ul className="overviewText">
+                {movieData.revenue ? (
+                  <li>${Math.round(movieData.revenue / 1000000)} Million</li>
+                ) : (
+                  "N/A"
+                )}
+              </ul>
+            </div>
+
+            <div className="tagline flex gap-5">
+              <h3>Tagline</h3>
+              <p className="overviewText">
+                {movieData.tagline ? movieData.tagline : "N/A"}
+              </p>
+            </div>
+
+            <div className="companies flex gap-5">
+              <h3>Companies</h3>
+              <ul className="overviewText flex flex-wrap gap-1">
+                {movieData.production_companies
+                  ? movieData.production_companies.map((company, i) => {
+                      if (i <= 1) {
+                        return (
+                          <li
+                            className="after:content-['·'] last:after:content-none"
+                            key={i}
+                          >
+                            {`${company.name} `}
+                          </li>
+                        );
+                      }
+                      return null;
+                    })
+                  : null}
+              </ul>
             </div>
           </div>
-
-          <div className="movieDetails"></div>
         </div>
       )}
     </div>

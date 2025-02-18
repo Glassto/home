@@ -198,14 +198,14 @@
       @apply text-indigo-200 font-medium max-w-150  overflow-clip;
     }
     & .genre {
-      @apply flex gap-5 items-center mb-5;
+      @apply flex gap-5 items-center;
     }
     & .genres {
       @apply w-full flex justify-between gap-10 items-center text-white overflow-scroll hide-scrollbar;
     }
 
     & .genre li {
-      @apply px-5 py-1 pt-1.25 bg-modal-light font-semibold rounded-md items-center;
+      @apply w-max px-5 py-1 pt-1.25 bg-modal-light font-semibold rounded-md items-center;
     }
   }
 }
