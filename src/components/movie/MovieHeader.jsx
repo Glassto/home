@@ -13,8 +13,6 @@ const MovieHeader = ({ movieData, params }) => {
         movieData.origin_country[0]
       );
       setMovieCertification(certification);
-
-      console.log(certification);
     } else setMovieCertification("N/A");
   };
 
