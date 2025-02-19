@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { fetchMovieCertification } from "../../data/TMDB_get";
 
-const MovieHeader = ({ movieData }) => {
+const MovieHeader = ({ movieData, params }) => {
   const [movieCertification, setMovieCertification] = useState([]);
 
   const getMovieCertifications = async () => {

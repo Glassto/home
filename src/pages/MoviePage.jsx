@@ -45,7 +45,7 @@ const MoviePage = () => {
         <p>{errorMessage}</p>
       ) : (
         <div className="movieInfo">
-          <MovieHeader movieData={movieData} />
+          <MovieHeader movieData={movieData} params={params} />
 
           <MovieMedia movieData={movieData} params={params} />
 
