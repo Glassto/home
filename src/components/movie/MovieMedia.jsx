@@ -1,7 +1,21 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { fetchMovieTrailer } from "../../data/TMDB_get";
 
-const MovieMedia = ({ movieData, movieTrailerList }) => {
+const MovieMedia = ({ movieData, params }) => {
+  const [movieTrailerList, setMovieTrailerList] = useState([]);
+
+  const getMovieTrailer = async () => {
+    const trailers = await fetchMovieTrailer(params.id);
+
+    if (trailers) {
+      setMovieTrailerList(trailers);
+    } else
+      throw new Error(
+        "Failed to fetch Trailers data from fetchMovies function"
+      );
+  };
+
   const curatedTrailerList = () => {
     for (const video of movieTrailerList) {
       if (
@@ -14,6 +28,10 @@ const MovieMedia = ({ movieData, movieTrailerList }) => {
 
     return null;
   };
+
+  useEffect(() => {
+    getMovieTrailer();
+  }, [params.id]);
 
   return (
     <div className="media">

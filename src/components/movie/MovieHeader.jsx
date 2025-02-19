@@ -1,8 +1,27 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { fetchMovieCertification } from "../../data/TMDB_get";
 
-const MovieHeader = ({ movieData, movieCertification }) => {
+const MovieHeader = ({ movieData }) => {
+  const [movieCertification, setMovieCertification] = useState([]);
+
+  const getMovieCertifications = async () => {
+    if (movieData.origin_country) {
+      const certification = await fetchMovieCertification(
+        params.id,
+        movieData.origin_country[0]
+      );
+      setMovieCertification(certification);
+
+      console.log(certification);
+    } else setMovieCertification("N/A");
+  };
+
+  useEffect(() => {
+    getMovieCertifications();
+  }, [movieData]);
+
   return (
     <>
       <div className="movieHeader">
