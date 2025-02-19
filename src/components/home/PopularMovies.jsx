@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Spinner from "./Spinner.jsx";
 import MovieCard from "./MovieCard.jsx";
 import { useDebounce } from "react-use";
-import { fetchMovies } from "../data/TMDB_get.js";
+import { fetchMovies } from "../../data/TMDB_get.js";
 
 const PopularMovies = ({ searchTerm }) => {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
@@ -36,7 +36,7 @@ const PopularMovies = ({ searchTerm }) => {
 
   return (
     <section className="all-movies">
-      <h2>Popular</h2>
+      <h2>All Movies</h2>
 
       {isLoading ? (
         <Spinner />

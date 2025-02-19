@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Spinner from "./Spinner.jsx";
-import { getTrendingMovies } from "../appwrite.js";
+import { getTrendingMovies } from "../../appwrite.js";
 import { Link } from "react-router";
 
 const TrendingMovies = () => {
@@ -33,7 +33,7 @@ const TrendingMovies = () => {
   }, []);
 
   return (
-    <div>
+    <>
       {trendingMovies.length > 0 && (
         <section className="trending">
           <h2>Trending</h2>
@@ -59,7 +59,7 @@ const TrendingMovies = () => {
           )}
         </section>
       )}
-    </div>
+    </>
   );
 };
 

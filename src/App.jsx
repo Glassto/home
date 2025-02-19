@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState } from "react";
-import Search from "./components/Search.jsx";
-import TrendingMovies from "./components/TrendingMovies.jsx";
-import PopularMovies from "./components/PopularMovies";
+import Search from "./components/home/Search.jsx";
+import TrendingMovies from "./components/home/TrendingMovies.jsx";
+import PopularMovies from "./components/home/PopularMovies.jsx";
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
